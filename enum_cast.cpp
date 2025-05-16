@@ -49,7 +49,8 @@ struct enum_mapping_traits;
  * @note Returns the first enum value (0) if no mapping is found
  */
 template <EnumConcept Dst, EnumConcept Src>
-constexpr Dst enum_cast(Src src) {
+constexpr Dst enum_cast(Src src)
+{
     static_assert(std::is_same_v<enum_category_t<Src>, enum_category_t<Dst>>,
                  "Source and destination enums must be of the same category");
     using Category = enum_category_t<Src>;
@@ -110,7 +111,8 @@ template <> struct enum_category<lib_b::Color> { using type = EnumColorTag; };
 template <> struct enum_category<lib_c::Color> { using type = EnumColorTag; };
 
 template <>
-struct enum_mapping_traits<EnumColorTag> {
+struct enum_mapping_traits<EnumColorTag>
+{
     using mapping_type = std::tuple<lib_a::Color, lib_b::Color, lib_c::Color>;
     constexpr static mapping_type mappings[] = {
         { lib_a::Color::Red, lib_b::Color::Red, lib_c::Color::Red },
@@ -131,7 +133,8 @@ template <> struct enum_category<lib_b::Shape> { using type = EnumShapeTag; };
 template <> struct enum_category<lib_c::Shape> { using type = EnumShapeTag; };
 
 template <>
-struct enum_mapping_traits<EnumShapeTag> {
+struct enum_mapping_traits<EnumShapeTag>
+{
     using mapping_type = std::tuple<lib_a::Shape, lib_b::Shape, lib_c::Shape>;
     constexpr static mapping_type mappings[] = {
         { lib_a::Shape::Circle, lib_b::Shape::Circle, lib_c::Shape::Circle },
@@ -142,7 +145,8 @@ struct enum_mapping_traits<EnumShapeTag> {
 
 #include <iostream>
 
-int main() {
+int main()
+{
     lib_a::Color a_color = enum_cast<lib_a::Color>(lib_c::Color::Red);
     std::cout << static_cast<int>(a_color) << std::endl;
 

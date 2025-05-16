@@ -46,7 +46,8 @@ struct enum_mapping_traits;
  * @note If a bit has no mapping, it will be dropped in the conversion
  */
 template <EnumConcept Dst, EnumConcept Src>
-constexpr Dst enum_flag_bits_cast(Src src) {
+constexpr Dst enum_flag_bits_cast(Src src)
+{
     static_assert(std::is_same_v<enum_category_t<Src>, enum_category_t<Dst>>,
                  "Source and destination enums must be of the same category");
     using Category = enum_category_t<Src>;
@@ -126,7 +127,8 @@ void print_flag_enum(E value)
     << " (0b" << std::bitset<8>(static_cast<int>(value)) << ")" << std::endl;
 }
 
-int main() {
+int main()
+{
     lib_a::Permission a = enum_flag_bits_cast<lib_a::Permission>(lib_b::READ | lib_b::WRITE);
     print_flag_enum(a);
     lib_b::Permission b = enum_flag_bits_cast<lib_b::Permission>(lib_a::Permission::Read | lib_a::Permission::Write);
